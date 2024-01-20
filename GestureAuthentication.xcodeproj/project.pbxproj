@@ -12,6 +12,8 @@
 		ABCBA8FA2B5B8E8B0065AAB4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA8F92B5B8E8B0065AAB4 /* Item.swift */; };
 		ABCBA8FC2B5B8E8D0065AAB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABCBA8FB2B5B8E8D0065AAB4 /* Assets.xcassets */; };
 		ABCBA8FF2B5B8E8D0065AAB4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */; };
+		ABCBA9082B5B8F2B0065AAB4 /* GestureCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */; };
+		ABCBA90A2B5B8F580065AAB4 /* GestureCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		ABCBA8F92B5B8E8B0065AAB4 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		ABCBA8FB2B5B8E8D0065AAB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationView.swift; sourceTree = "<group>"; };
+		ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 				ABCBA8F52B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift */,
 				ABCBA8F72B5B8E8B0065AAB4 /* ContentView.swift */,
 				ABCBA8F92B5B8E8B0065AAB4 /* Item.swift */,
+				ABCBA9062B5B8F1D0065AAB4 /* Views */,
+				ABCBA9052B5B8EC80065AAB4 /* Models */,
 				ABCBA8FB2B5B8E8D0065AAB4 /* Assets.xcassets */,
 				ABCBA8FD2B5B8E8D0065AAB4 /* Preview Content */,
 			);
@@ -68,6 +74,22 @@
 				ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ABCBA9052B5B8EC80065AAB4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		ABCBA9062B5B8F1D0065AAB4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,9 +162,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABCBA90A2B5B8F580065AAB4 /* GestureCreationModel.swift in Sources */,
 				ABCBA8F82B5B8E8B0065AAB4 /* ContentView.swift in Sources */,
 				ABCBA8FA2B5B8E8B0065AAB4 /* Item.swift in Sources */,
 				ABCBA8F62B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift in Sources */,
+				ABCBA9082B5B8F2B0065AAB4 /* GestureCreationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,6 +303,7 @@
 				DEVELOPMENT_TEAM = S5QV62NY55;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Required for Gesture Authentication";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -308,6 +333,7 @@
 				DEVELOPMENT_TEAM = S5QV62NY55;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMotionUsageDescription = "Required for Gesture Authentication";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
