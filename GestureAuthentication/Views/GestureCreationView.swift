@@ -10,11 +10,16 @@ import SwiftUI
 import Charts
 
 struct GestureCreationView: View {
-    @ObservedObject var gestureModel = GestureCreationModel()
+    @ObservedObject var gestureModel = GestureModel()
+    @State private var showingAlert = false
+    @State private var navigateToAuthentication = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
+                
+                Spacer()
+                
                 VStack{
                     Button(action: {
                         gestureModel.toggleRecording()
@@ -27,9 +32,10 @@ struct GestureCreationView: View {
                     .cornerRadius(10)
                     
                     Text("Recorded Data Points: \(gestureModel.recordedData.count)")
+                        .padding([.top], 10)
                 }
-                .padding([.bottom], 20)
-
+    
+                Spacer()
                 
                 VStack {
                     Text("X-Axis")
@@ -41,7 +47,7 @@ struct GestureCreationView: View {
                         ForEach(gestureModel.recordedData.indices, id: \.self) { index in
                             LineMark(
                                 x: .value("Time", index),
-                                y: .value("X", gestureModel.recordedData[index].x),
+                                y: .value("X", gestureModel.recordedData[index].acceleration.x),
                                 series: .value("Axis", "X")
                             )
                             
@@ -59,7 +65,7 @@ struct GestureCreationView: View {
                         ForEach(gestureModel.recordedData.indices, id: \.self) { index in
                             LineMark(
                                 x: .value("Time", index),
-                                y: .value("Y", gestureModel.recordedData[index].y),
+                                y: .value("Y", gestureModel.recordedData[index].acceleration.y),
                                 series: .value("Axis", "Y")
                             )
                             
@@ -77,7 +83,7 @@ struct GestureCreationView: View {
                         ForEach(gestureModel.recordedData.indices, id: \.self) { index in
                             LineMark(
                                 x: .value("Time", index),
-                                y: .value("Z", gestureModel.recordedData[index].z),
+                                y: .value("Z", gestureModel.recordedData[index].acceleration.z),
                                 series: .value("Axis", "Z")
                             )
                             
@@ -87,8 +93,57 @@ struct GestureCreationView: View {
                     .frame(height: 100)
                 }
                 
+                Spacer()
+                
+                
+                HStack {
+                    Button(action: {
+                        gestureModel.resetRecording()
+                    }) {
+                        Text("Reset Recording")
+                    }
+                    .padding()
+                    .background(Color.red)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    
+                    Spacer()
+                    
+                    Button("Store Gesture") {
+                        gestureModel.stopRecording()
+                        gestureModel.saveDataToFile()
+
+                    }
+                    .padding()
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+
+                }
+                .padding()
+                
             }
             .navigationBarTitle("Gesture Creation")
+            .alert(isPresented: $gestureModel.isSaveSuccessful) {
+                Alert(
+                    title: Text("Success"),
+                    message: Text("Gesture stored successfully! \nDo you want to authenticate?"),
+                    primaryButton: .default(Text("Retry")) {
+                        // Simply dismiss the alert
+                    },
+                    secondaryButton: .default(Text("Verify")) {
+                        // Trigger navigation to AuthenticationView
+                        self.navigateToAuthentication = true
+                    }
+                )
+            }
+            .navigationDestination(isPresented: $navigateToAuthentication) {
+                AuthenticationView()
+            }
         }
     }
+}
+
+#Preview {
+    GestureCreationView()
 }

@@ -7,16 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB56C0442B5D3970009BBE82 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */; };
+		AB56C0462B5D3984009BBE82 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */; };
+		AB56C0482B5D3A12009BBE82 /* MotionDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */; };
 		ABCBA8F62B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA8F52B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift */; };
 		ABCBA8F82B5B8E8B0065AAB4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA8F72B5B8E8B0065AAB4 /* ContentView.swift */; };
 		ABCBA8FA2B5B8E8B0065AAB4 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA8F92B5B8E8B0065AAB4 /* Item.swift */; };
 		ABCBA8FC2B5B8E8D0065AAB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABCBA8FB2B5B8E8D0065AAB4 /* Assets.xcassets */; };
 		ABCBA8FF2B5B8E8D0065AAB4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */; };
 		ABCBA9082B5B8F2B0065AAB4 /* GestureCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */; };
-		ABCBA90A2B5B8F580065AAB4 /* GestureCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */; };
+		ABCBA90A2B5B8F580065AAB4 /* GestureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCBA9092B5B8F580065AAB4 /* GestureModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
+		AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDataModel.swift; sourceTree = "<group>"; };
 		ABCBA8F22B5B8E8B0065AAB4 /* GestureAuthentication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GestureAuthentication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCBA8F52B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureAuthenticationApp.swift; sourceTree = "<group>"; };
 		ABCBA8F72B5B8E8B0065AAB4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -24,7 +30,7 @@
 		ABCBA8FB2B5B8E8D0065AAB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationView.swift; sourceTree = "<group>"; };
-		ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationModel.swift; sourceTree = "<group>"; };
+		ABCBA9092B5B8F580065AAB4 /* GestureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +85,9 @@
 		ABCBA9052B5B8EC80065AAB4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				ABCBA9092B5B8F580065AAB4 /* GestureCreationModel.swift */,
+				ABCBA9092B5B8F580065AAB4 /* GestureModel.swift */,
+				AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */,
+				AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -88,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */,
+				AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,10 +171,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABCBA90A2B5B8F580065AAB4 /* GestureCreationModel.swift in Sources */,
+				ABCBA90A2B5B8F580065AAB4 /* GestureModel.swift in Sources */,
+				AB56C0482B5D3A12009BBE82 /* MotionDataModel.swift in Sources */,
 				ABCBA8F82B5B8E8B0065AAB4 /* ContentView.swift in Sources */,
+				AB56C0442B5D3970009BBE82 /* AuthenticationView.swift in Sources */,
 				ABCBA8FA2B5B8E8B0065AAB4 /* Item.swift in Sources */,
 				ABCBA8F62B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift in Sources */,
+				AB56C0462B5D3984009BBE82 /* AuthenticationModel.swift in Sources */,
 				ABCBA9082B5B8F2B0065AAB4 /* GestureCreationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
