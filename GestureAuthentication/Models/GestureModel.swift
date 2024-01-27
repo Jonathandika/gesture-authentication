@@ -14,11 +14,11 @@ class GestureModel: ObservableObject {
     private var motionManager = CMMotionManager()
     private var timer: Timer?
     
+    @Published var gestureDataName = ""
     @Published var isRecording = false
     @Published var recordedData = [MotionData]()
-    @Published var storedGestureData = [MotionData]()
     @Published var isSaveSuccessful: Bool = false
-    
+
     private func startRecording() {
         print("Start Recording...")
         recordedData.removeAll()
@@ -32,7 +32,11 @@ class GestureModel: ObservableObject {
                 let data = MotionData(timestamp: accelerometerData.timestamp,
                                       acceleration: accelerometerData.acceleration,
                                       rotationRate: gyroData.rotationRate)
-                self?.recordedData.append(data)
+                DispatchQueue.main.async {
+                    self?.objectWillChange.send()
+                    self?.recordedData.append(data)
+                }
+               
             }
         }
     }
@@ -58,31 +62,16 @@ class GestureModel: ObservableObject {
         recordedData.removeAll()
     }
     
-    func saveDataToFile() {
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("GestureData.json")
+    func saveDataToFile(gestureData: [MotionData], gestureDataName: String = "GestureData") {
+        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent(gestureDataName + ".json")
 
         do {
-            let data = try JSONEncoder().encode(recordedData)
+            let data = try JSONEncoder().encode(gestureData)
             try data.write(to: fileURL)
             isSaveSuccessful = true
         } catch {
             print("Error saving file: \(error)")
-        }
-    }
-    
-    func loadStoredGestureData(completion: @escaping () -> Void) {
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("GestureData.json")
-
-        do {
-            if FileManager.default.fileExists(atPath: fileURL.path) {
-                let data = try Data(contentsOf: fileURL)
-                storedGestureData = try JSONDecoder().decode([MotionData].self, from: data)
-                completion()
-            } else {
-                print("Stored gesture data file does not exist")
-            }
-        } catch {
-            print("Error loading stored gesture data: \(error)")
         }
     }
 }

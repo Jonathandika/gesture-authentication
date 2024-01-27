@@ -12,6 +12,8 @@ import Charts
 struct AuthenticationView: View {
     @StateObject private var authenticationModel = AuthenticationModel()
     @ObservedObject var gestureRecorder = GestureModel()
+    
+    @State private var selectedGesture = 0
 
     var body: some View {
         VStack {
@@ -24,33 +26,50 @@ struct AuthenticationView: View {
                     .fontWeight(.bold)
                     .foregroundStyle(.secondary)
                     .padding([.top], 10)
-                    
+                
+                
+                Picker("Gesture", selection: $selectedGesture) {
+                    Text("Gesture 1").tag(0)
+                    Text("Gesture 2").tag(1)
+                    Text("Gesture 3").tag(2)
+                }
+                .pickerStyle(MenuPickerStyle())
+                .padding(0)
+
+                
                 Chart {
-                    ForEach(authenticationModel.gestureModel.storedGestureData.indices, id: \.self) { index in
+                    ForEach(authenticationModel.storedGestureData[selectedGesture].indices, id: \.self) { index in
+                        let motionData = authenticationModel.storedGestureData[selectedGesture][index]
+                        let xValue = motionData.acceleration.x
+                        let yValue = motionData.acceleration.y
+                        let zValue = motionData.acceleration.z
+
                         LineMark(
                             x: .value("Index", index),
-                            y: .value("X", authenticationModel.gestureModel.storedGestureData[index].acceleration.x),
+                            y: .value("X", xValue),
                             series: .value("Axis", "X")
                         )
                         .foregroundStyle(.red)
 
                         LineMark(
                             x: .value("Index", index),
-                            y: .value("Y", authenticationModel.gestureModel.storedGestureData[index].acceleration.y),
+                            y: .value("Y", yValue),
                             series: .value("Axis", "Y")
                         )
                         .foregroundStyle(.green)
 
                         LineMark(
                             x: .value("Index", index),
-                            y: .value("Z", authenticationModel.gestureModel.storedGestureData[index].acceleration.z),
+                            y: .value("Z", zValue),
                             series: .value("Axis", "Z")
                         )
                         .foregroundStyle(.blue)
                     }
                 }
-                .chartLegend(position: .top, alignment: .leading, spacing: 8)
+                .chartLegend(position: .topLeading)
                 .frame(height: 100)
+
+
                 
                 HStack {
                     LegendView(color: .red, text: "X Axis")
@@ -116,7 +135,6 @@ struct AuthenticationView: View {
                 Text("Default Algorithm").tag(AuthenticationModel.GestureComparisonAlgorithm.defaultAlgorithm)
                 Text("DTW").tag(AuthenticationModel.GestureComparisonAlgorithm.DTW)
                 Text("FastDTW").tag(AuthenticationModel.GestureComparisonAlgorithm.FastDTW)
-                Text("PrunedDTW").tag(AuthenticationModel.GestureComparisonAlgorithm.PrunedDTW)
                 Text("Protractor3D").tag(AuthenticationModel.GestureComparisonAlgorithm.Protractor3D)
                 Text("GlobalSequenceAlignment").tag(AuthenticationModel.GestureComparisonAlgorithm.GlobalSequenceAlignment)
             }

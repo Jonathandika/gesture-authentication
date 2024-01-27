@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB4598B22B64C48B00F0DDA9 /* GestureCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4598B12B64C48B00F0DDA9 /* GestureCreationModel.swift */; };
+		AB4598B42B64DC9700F0DDA9 /* GestureChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB4598B32B64DC9700F0DDA9 /* GestureChartView.swift */; };
 		AB56C0442B5D3970009BBE82 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */; };
 		AB56C0462B5D3984009BBE82 /* AuthenticationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */; };
 		AB56C0482B5D3A12009BBE82 /* MotionDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB4598B12B64C48B00F0DDA9 /* GestureCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationModel.swift; sourceTree = "<group>"; };
+		AB4598B32B64DC9700F0DDA9 /* GestureChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureChartView.swift; sourceTree = "<group>"; };
 		AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationModel.swift; sourceTree = "<group>"; };
 		AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionDataModel.swift; sourceTree = "<group>"; };
@@ -88,6 +92,7 @@
 				ABCBA9092B5B8F580065AAB4 /* GestureModel.swift */,
 				AB56C0452B5D3984009BBE82 /* AuthenticationModel.swift */,
 				AB56C0472B5D3A12009BBE82 /* MotionDataModel.swift */,
+				AB4598B12B64C48B00F0DDA9 /* GestureCreationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -97,6 +102,7 @@
 			children = (
 				ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */,
 				AB56C0432B5D3970009BBE82 /* AuthenticationView.swift */,
+				AB4598B32B64DC9700F0DDA9 /* GestureChartView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -172,7 +178,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABCBA90A2B5B8F580065AAB4 /* GestureModel.swift in Sources */,
+				AB4598B22B64C48B00F0DDA9 /* GestureCreationModel.swift in Sources */,
 				AB56C0482B5D3A12009BBE82 /* MotionDataModel.swift in Sources */,
+				AB4598B42B64DC9700F0DDA9 /* GestureChartView.swift in Sources */,
 				ABCBA8F82B5B8E8B0065AAB4 /* ContentView.swift in Sources */,
 				AB56C0442B5D3970009BBE82 /* AuthenticationView.swift in Sources */,
 				ABCBA8FA2B5B8E8B0065AAB4 /* Item.swift in Sources */,

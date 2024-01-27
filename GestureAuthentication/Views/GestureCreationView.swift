@@ -7,12 +7,14 @@
 
 import Foundation
 import SwiftUI
-import Charts
 
 struct GestureCreationView: View {
-    @ObservedObject var gestureModel = GestureModel()
+    @ObservedObject var gestureCreationModel = GestureCreationModel()
+    
     @State private var showingAlert = false
     @State private var navigateToAuthentication = false
+    @State private var gestureCreationStep:Int = 0
+    @State private var gestureCreationFinished = false
 
     var body: some View {
         NavigationStack {
@@ -22,83 +24,83 @@ struct GestureCreationView: View {
                 
                 VStack{
                     Button(action: {
-                        gestureModel.toggleRecording()
+                        self.gestureCreationModel.objectWillChange.send()
+                        gestureCreationModel.gestureModels[gestureCreationStep].toggleRecording()
                     }) {
-                        Text(gestureModel.isRecording ? "Stop Recording" : "Start Recording")
+                        Text(gestureCreationModel.gestureModels[gestureCreationStep].isRecording ? "Stop Recording" : "Start Recording")
                     }
                     .padding()
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
                     
-                    Text("Recorded Data Points: \(gestureModel.recordedData.count)")
-                        .padding([.top], 10)
+                    GestureDataPointsCountView(gestureModel: gestureCreationModel.gestureModels[gestureCreationStep])
                 }
     
                 Spacer()
                 
                 VStack {
-                    Text("X-Axis")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                                .padding([.top], 10)
-                    Divider()
-                    Chart {
-                        ForEach(gestureModel.recordedData.indices, id: \.self) { index in
-                            LineMark(
-                                x: .value("Time", index),
-                                y: .value("X", gestureModel.recordedData[index].acceleration.x),
-                                series: .value("Axis", "X")
-                            )
-                            
-                            .foregroundStyle(.red)
-                        }
+                    ForEach((0...2), id:\.self) { gestureID in
+                        Text("Gesture \(gestureID + 1)")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.secondary)
+                            .padding([.top], 10)
+                        GestureChartView(gestureModel: gestureCreationModel.gestureModels[gestureID])
                     }
-                    .frame(height: 100)
-                    
-                    Text("Y-Axis")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                                .padding([.top], 10)
-                    Divider()
-                    Chart {
-                        ForEach(gestureModel.recordedData.indices, id: \.self) { index in
-                            LineMark(
-                                x: .value("Time", index),
-                                y: .value("Y", gestureModel.recordedData[index].acceleration.y),
-                                series: .value("Axis", "Y")
-                            )
-                            
-                            .foregroundStyle(.green)
-                        }
-                    }
-                    .frame(height: 100)
-                    
-                    Text("Z-Axis")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                                .padding([.top], 10)
-                    Divider()
-                    Chart {
-                        ForEach(gestureModel.recordedData.indices, id: \.self) { index in
-                            LineMark(
-                                x: .value("Time", index),
-                                y: .value("Z", gestureModel.recordedData[index].acceleration.z),
-                                series: .value("Axis", "Z")
-                            )
-                            
-                            .foregroundStyle(.blue)
-                        }
-                    }
-                    .frame(height: 100)
                 }
                 
                 Spacer()
                 
+                Divider()
+                
+                HStack {
+                    Spacer()
+                    
+                    Text("Gesture 1")
+                    if (gestureCreationStep >= 1) {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color.green)
+                    }
+                    else {
+                        Image(systemName: "xmark.circle")
+                            .foregroundColor(Color.red)
+                    }
+                    
+                    
+                    
+                    Spacer()
+                    
+                    Text("Gesture 2")
+                    if (gestureCreationStep >= 2) {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color.green)
+                    }
+                    else {
+                        Image(systemName: "xmark.circle")
+                            .foregroundColor(Color.red)
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Gesture 3")
+                    if (gestureCreationFinished) {
+                        Image(systemName: "checkmark.circle")
+                            .foregroundColor(Color.green)
+                    }
+                    else {
+                        Image(systemName: "xmark.circle")
+                            .foregroundColor(Color.red)
+                    }
+                    
+                    Spacer()
+                }.padding([.top, .bottom], 5)
+                Divider()
                 
                 HStack {
                     Button(action: {
-                        gestureModel.resetRecording()
+                        self.gestureCreationModel.objectWillChange.send()
+                        gestureCreationModel.gestureModels[gestureCreationStep].resetRecording()
                     }) {
                         Text("Reset Recording")
                     }
@@ -110,9 +112,16 @@ struct GestureCreationView: View {
                     Spacer()
                     
                     Button("Store Gesture") {
-                        gestureModel.stopRecording()
-                        gestureModel.saveDataToFile()
-
+                        self.gestureCreationModel.objectWillChange.send()
+                        gestureCreationModel.gestureModels[gestureCreationStep].stopRecording()
+                        gestureCreationModel.gestureModels[gestureCreationStep]
+                            .saveDataToFile(
+                                gestureData: gestureCreationModel.gestureModels[gestureCreationStep].recordedData,
+                                gestureDataName: "gestureData_\(gestureCreationStep + 1)"
+                            )
+                        if (self.gestureCreationStep >= 2) {
+                            self.gestureCreationFinished = true
+                        }
                     }
                     .padding()
                     .background(Color.green)
@@ -124,18 +133,34 @@ struct GestureCreationView: View {
                 
             }
             .navigationBarTitle("Gesture Creation")
-            .alert(isPresented: $gestureModel.isSaveSuccessful) {
-                Alert(
-                    title: Text("Success"),
-                    message: Text("Gesture stored successfully! \nDo you want to authenticate?"),
-                    primaryButton: .default(Text("Retry")) {
-                        // Simply dismiss the alert
-                    },
-                    secondaryButton: .default(Text("Verify")) {
-                        // Trigger navigation to AuthenticationView
-                        self.navigateToAuthentication = true
-                    }
-                )
+            .alert(isPresented: $gestureCreationModel.gestureModels[gestureCreationStep].isSaveSuccessful) {
+                
+                if (self.gestureCreationStep >= 2) {
+                    return Alert(
+                        title: Text("Success"),
+                        message: Text("Gestures stored successfully! \nDo you want to authenticate?"),
+                        primaryButton: .default(Text("Retry")) {
+                            self.gestureCreationStep -= 1
+                        },
+                        secondaryButton: .default(Text("Verify")) {
+                            // Trigger navigation to AuthenticationView
+                            self.navigateToAuthentication = true
+                        }
+                    )
+                }
+                else {
+                    return Alert(
+                        title: Text("Success"),
+                        message: Text("Gesture stored successfully! \nPlease record the next gesture!"),
+                        primaryButton: .default(Text("Retry")) {
+
+                        },
+                        secondaryButton: .default(Text("OK")) {
+                            // Trigger navigation to AuthenticationView
+                            self.gestureCreationStep += 1
+                        }
+                    )
+                }
             }
             .navigationDestination(isPresented: $navigateToAuthentication) {
                 AuthenticationView()
@@ -143,6 +168,17 @@ struct GestureCreationView: View {
         }
     }
 }
+
+struct GestureDataPointsCountView: View {
+    @ObservedObject var gestureModel: GestureModel
+
+    var body: some View {
+        Text("Recorded Data Points: \(gestureModel.recordedData.count)")
+                                .padding([.top], 10)
+    }
+}
+
+
 
 #Preview {
     GestureCreationView()
