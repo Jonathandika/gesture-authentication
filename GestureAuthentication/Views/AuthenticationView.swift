@@ -141,6 +141,7 @@ struct AuthenticationView: View {
             .pickerStyle(MenuPickerStyle())
 
             Button("Compare Gestures") {
+                gestureRecorder.stopRecording()
                 authenticationModel.compareGestures(newGesture: gestureRecorder.recordedData)
             }
             .padding()

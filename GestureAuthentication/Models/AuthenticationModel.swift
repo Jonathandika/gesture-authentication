@@ -50,8 +50,12 @@ class AuthenticationModel: ObservableObject {
 
     func compareGestures(newGesture: [MotionData]) {
         
-        gestureModel.saveDataToFile(gestureData: newGesture, gestureDataName: "newGesture")
+        let date = Date()
+        let dateFormatter = DateFormatter()
         
+        dateFormatter.dateFormat = "dd_MM_YY+HH_mm_ss"
+        
+        gestureModel.saveDataToFile(gestureData: newGesture, gestureDataName: "newGesture_" + dateFormatter.string(from: date))
         let startTime = Date()
         
         // self.authenticationResult = performComparison(recordedData, storedGestureData, using: selectedAlgorithm)
