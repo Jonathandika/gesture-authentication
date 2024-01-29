@@ -22,23 +22,6 @@ struct GestureCreationView: View {
                 
                 Spacer()
                 
-                VStack{
-                    Button(action: {
-                        self.gestureCreationModel.objectWillChange.send()
-                        gestureCreationModel.gestureModels[gestureCreationStep].toggleRecording()
-                    }) {
-                        Text(gestureCreationModel.gestureModels[gestureCreationStep].isRecording ? "Stop Recording" : "Start Recording")
-                    }
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    GestureDataPointsCountView(gestureModel: gestureCreationModel.gestureModels[gestureCreationStep])
-                }
-    
-                Spacer()
-                
                 VStack {
                     ForEach((0...2), id:\.self) { gestureID in
                         Text("Gesture \(gestureID + 1)")
@@ -50,6 +33,25 @@ struct GestureCreationView: View {
                     }
                 }
                 
+                Spacer()
+                
+                VStack{
+                    
+                    GestureDataPointsCountView(gestureModel: gestureCreationModel.gestureModels[gestureCreationStep])
+                    
+                    Button(action: {
+                        self.gestureCreationModel.objectWillChange.send()
+                        gestureCreationModel.gestureModels[gestureCreationStep].toggleRecording()
+                    }) {
+                        Text(gestureCreationModel.gestureModels[gestureCreationStep].isRecording ? "Stop Recording" : "Start Recording")
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                   
+                }.padding(.bottom, 10)
+    
                 Spacer()
                 
                 Divider()
