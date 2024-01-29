@@ -122,6 +122,10 @@ struct AuthenticationView: View {
             Spacer()
             
             Button(action: {
+                if !gestureRecorder.isRecording {
+                    authenticationModel.authenticationResult = nil
+                    authenticationModel.comparisonTime = nil
+                }
                 gestureRecorder.toggleRecording()
             }) {
                 Text(gestureRecorder.isRecording ? "Stop Recording" : "Start Recording")
@@ -143,6 +147,7 @@ struct AuthenticationView: View {
             Button("Compare Gestures") {
                 gestureRecorder.stopRecording()
                 authenticationModel.compareGestures(newGesture: gestureRecorder.recordedData)
+                UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             }
             .padding()
             .background(Color.green)
