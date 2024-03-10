@@ -2,3 +2,4 @@
 *.json
 files/*
 *.pyc
+!vercel.json
