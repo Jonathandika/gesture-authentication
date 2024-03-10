@@ -74,4 +74,17 @@ class GestureModel: ObservableObject {
             print("Error saving file: \(error)")
         }
     }
+    
+    func toJsonData(recordedData: [MotionData]) -> Data? {
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(recordedData)
+            return jsonData
+        } catch {
+            print("Error encoding GestureModel to JSON: \(error)")
+            return nil
+        }
+    }
+    
+    
 }

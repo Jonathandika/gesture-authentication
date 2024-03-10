@@ -136,11 +136,12 @@ struct AuthenticationView: View {
             .cornerRadius(10)
 
             Picker("Algorithm", selection: $authenticationModel.selectedAlgorithm) {
-                Text("Default Algorithm").tag(AuthenticationModel.GestureComparisonAlgorithm.defaultAlgorithm)
                 Text("DTW").tag(AuthenticationModel.GestureComparisonAlgorithm.DTW)
                 Text("FastDTW").tag(AuthenticationModel.GestureComparisonAlgorithm.FastDTW)
-                Text("Protractor3D").tag(AuthenticationModel.GestureComparisonAlgorithm.Protractor3D)
-                Text("GlobalSequenceAlignment").tag(AuthenticationModel.GestureComparisonAlgorithm.GlobalSequenceAlignment)
+                Text("CTW").tag(AuthenticationModel.GestureComparisonAlgorithm.CTW)
+                Text("SoftDTW").tag(AuthenticationModel.GestureComparisonAlgorithm.SoftDTW)
+                Text("Euclidean").tag(AuthenticationModel.GestureComparisonAlgorithm.Euclidean)
+                Text("Correlation").tag(AuthenticationModel.GestureComparisonAlgorithm.Correlation)
             }
             .pickerStyle(MenuPickerStyle())
 
@@ -148,6 +149,7 @@ struct AuthenticationView: View {
                 gestureRecorder.stopRecording()
                 authenticationModel.compareGestures(newGesture: gestureRecorder.recordedData)
                 UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                
             }
             .padding()
             .background(Color.green)
@@ -157,6 +159,7 @@ struct AuthenticationView: View {
             Spacer()
             
             // Display the result and comparison time
+            
             if let result = authenticationModel.authenticationResult {
                 if (result == true) {
                     Text("Gesture Matched !")
@@ -171,6 +174,11 @@ struct AuthenticationView: View {
                 }
                 
             }
+            if let score = authenticationModel.distanceScore {
+                Text("Distance: \(score)")
+                    .padding(10)
+            }
+            
             if let time = authenticationModel.comparisonTime {
                 Text("Comparison Time: \(time) seconds")
                     .padding(10)
@@ -195,7 +203,9 @@ struct LegendView: View {
         }
     }
 }
-
-#Preview {
-    AuthenticationView()
-}
+//
+//#Preview {
+//    AuthenticationView()
+//}
+//
+//

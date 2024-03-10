@@ -122,6 +122,8 @@ struct GestureCreationView: View {
                                 gestureDataName: "gestureData_\(gestureCreationStep + 1)"
                             )
                         if (self.gestureCreationStep >= 2) {
+                            // Upload to Server
+                            gestureCreationModel.uploadGestures()
                             self.gestureCreationFinished = true
                         }
                     }
