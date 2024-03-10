@@ -11,6 +11,8 @@ from matplotlib.gridspec import GridSpec, GridSpecFromSubplotSpec
 
 from scipy.spatial.distance import euclidean
 
+from typing import List
+
 from dtaidistance import dtw_ndim
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
@@ -21,6 +23,15 @@ from tslearn.metrics import ctw, soft_dtw
 
 
 class GestureAuthenticator:
+    
+    def __init__(self) -> None:
+        self.gesture_category = None
+        self.storedGesture_dfs = []
+        
+    def register_gesture(self, category: str, gesture_df: List[pd.DataFrame]):
+        self.gesture_category = category
+        self.storedGesture_dfs = gesture_df
+        
     
     def convert_to_array(self, gesture_df):
     
@@ -40,10 +51,13 @@ class GestureAuthenticator:
         return gesture_array
     
     def authenticateGesture(self,
-                            storedGesture_dfs: list[pd.DataFrame], 
-                            newGesture_df:pd.DataFrame,
+                            newGesture_df: pd.DataFrame,
+                            storedGesture_dfs: list[pd.DataFrame] = None, 
                             algorithm: str = 'dtw',
                             threshold: float = 100) ->  tuple[bool, float]:
+        
+        if storedGesture_dfs is None:
+            storedGesture_dfs = self.storedGesture_dfs
         
         storedGesture_arrays = [self.convert_to_array(storedGesture_df) for storedGesture_df in storedGesture_dfs]
         newGesture_array = self.convert_to_array(newGesture_df)
@@ -91,9 +105,9 @@ class GestureAuthenticator:
         avg_distance = np.mean(distances)
         
         if (avg_distance <= threshold):
-            return True, avg_distance, time_taken
+            return True, float(avg_distance), float(time_taken)
         else:
-            return False, avg_distance, time_taken
+            return False, float(avg_distance), float(time_taken)
             
         
         
