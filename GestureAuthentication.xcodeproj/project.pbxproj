@@ -35,6 +35,7 @@
 		ABCBA8FE2B5B8E8D0065AAB4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ABCBA9072B5B8F2B0065AAB4 /* GestureCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureCreationView.swift; sourceTree = "<group>"; };
 		ABCBA9092B5B8F580065AAB4 /* GestureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureModel.swift; sourceTree = "<group>"; };
+		ABD98BC12B9DBE3600CFA2A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +68,7 @@
 		ABCBA8F42B5B8E8B0065AAB4 /* GestureAuthentication */ = {
 			isa = PBXGroup;
 			children = (
+				ABD98BC12B9DBE3600CFA2A8 /* Info.plist */,
 				ABCBA8F52B5B8E8B0065AAB4 /* GestureAuthenticationApp.swift */,
 				ABCBA8F72B5B8E8B0065AAB4 /* ContentView.swift */,
 				ABCBA8F92B5B8E8B0065AAB4 /* Item.swift */,
@@ -323,6 +325,7 @@
 				DEVELOPMENT_TEAM = S5QV62NY55;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GestureAuthentication/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GestureAuth;
 				INFOPLIST_KEY_NSMotionUsageDescription = "Required for Gesture Authentication";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -355,6 +358,7 @@
 				DEVELOPMENT_TEAM = S5QV62NY55;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GestureAuthentication/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GestureAuth;
 				INFOPLIST_KEY_NSMotionUsageDescription = "Required for Gesture Authentication";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -20,7 +20,7 @@ class GestureCreationModel: ObservableObject {
 
     func uploadGestures(category: String = "default") {
         // Create the URL
-        guard let url = URL(string: "https://salty-fans-exist.loca.lt/register-gesture/") else { return }
+        guard let url = URL(string: "https://gesture-jetstream.koyeb.app/register-gesture/") else { return }
         
         // Prepare the multipart request
         var request = URLRequest(url: url)

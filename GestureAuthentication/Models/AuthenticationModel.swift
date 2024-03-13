@@ -53,7 +53,7 @@ class AuthenticationModel: ObservableObject {
 
         guard let jsonData = gestureModel.toJsonData(recordedData: newGesture) else { return }
 
-        guard let url = URL(string: "https://salty-fans-exist.loca.lt/authenticate-gesture/") else { return }
+        guard let url = URL(string: "https://gesture-jetstream.koyeb.app/authenticate-gesture/") else { return }
 
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
