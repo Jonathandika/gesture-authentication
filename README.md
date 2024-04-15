@@ -1,4 +1,4 @@
-# 3D Gesture-Based Mobile Authentication System
+# 3D Gesture Mobile Authentication Using Acceleration and Gyroscope Sensor
 
 ## Project Overview
 
