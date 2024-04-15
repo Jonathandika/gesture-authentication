@@ -21,7 +21,7 @@ class GestureModel: ObservableObject {
 
     private func startRecording() {
         print("Start Recording...")
-        recordedData.removeAll()
+        recordedData = [MotionData]()
         isRecording = true
         motionManager.startAccelerometerUpdates()
         motionManager.startGyroUpdates()
@@ -59,7 +59,10 @@ class GestureModel: ObservableObject {
     
     func resetRecording() {
         stopRecording()
-        recordedData.removeAll()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            self.recordedData.removeAll()
+        }
     }
     
     func saveDataToFile(gestureData: [MotionData], gestureDataName: String = "GestureData") {

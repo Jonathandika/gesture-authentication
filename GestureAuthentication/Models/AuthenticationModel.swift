@@ -12,7 +12,7 @@ class AuthenticationModel: ObservableObject {
     @Published var authenticationResult: Bool?
     @Published var distanceScore: Double?
     @Published var comparisonTime: TimeInterval?
-    @Published var selectedAlgorithm: GestureComparisonAlgorithm = .DTW
+    @Published var selectedAlgorithm: GestureComparisonAlgorithm = .FastDTW
     
     @Published var storedGestureData = [[MotionData]]()
     
@@ -46,10 +46,23 @@ class AuthenticationModel: ObservableObject {
         case CTW = "ctw"
         case SoftDTW = "softdtw"
         case Euclidean = "euclidean"
-        case Correlation = "correlation"
     }
+    
+    var algorithmThresholds = [ "dtw" : 0.138,
+                                "fastdtw" : 0.119,
+                                "ctw" : 0.138,
+                                "softdtw" : 0.645,
+                                "euclidean" : 10.5 ]
 
     func compareGestures(newGesture: [MotionData]) {
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "dd_MM_YY+HH_mm_ss"
+
+        gestureModel.saveDataToFile(gestureData: newGesture, gestureDataName: "newGesture_" + dateFormatter.string(from: date))
+        
 
         guard let jsonData = gestureModel.toJsonData(recordedData: newGesture) else { return }
 
@@ -70,7 +83,7 @@ class AuthenticationModel: ObservableObject {
                                     using: boundary))
 
         body.append(convertFormField(named: "algorithm", value: selectedAlgorithm.rawValue, using: boundary))
-        body.append(convertFormField(named: "threshold", value: String(0.15), using: boundary)) // Adjust the threshold as necessary
+        body.append(convertFormField(named: "threshold", value: String(algorithmThresholds[selectedAlgorithm.rawValue] ?? 0.645), using: boundary)) // Adjust the threshold as necessary
 
         body.append("--\(boundary)--\r\n".data(using: .utf8)!)
 

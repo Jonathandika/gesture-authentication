@@ -85,32 +85,60 @@ struct AuthenticationView: View {
                     .foregroundStyle(.secondary)
                     .padding([.top], 10)
                 
-                Chart {
-                    ForEach(gestureRecorder.recordedData.indices, id: \.self) { index in
+                if (gestureRecorder.recordedData.count > 0) {
+                    Chart {
+                        ForEach(gestureRecorder.recordedData.indices, id: \.self) { index in
+                            LineMark(
+                                x: .value("Index", index),
+                                y: .value("X", gestureRecorder.recordedData[index].acceleration.x),
+                                series: .value("Axis", "X")
+                            )
+                            .foregroundStyle(.red)
+
+                            LineMark(
+                                x: .value("Index", index),
+                                y: .value("Y", gestureRecorder.recordedData[index].acceleration.y),
+                                series: .value("Axis", "Y")
+                            )
+                            .foregroundStyle(.green)
+
+                            LineMark(
+                                x: .value("Index", index),
+                                y: .value("Z", gestureRecorder.recordedData[index].acceleration.z),
+                                series: .value("Axis", "Z")
+                            )
+                            .foregroundStyle(.blue)
+                        }
+                    }
+                    .chartLegend(position: .top, alignment: .leading, spacing: 8)
+                    .frame(height: 100)
+                } else {
+                    Chart {
                         LineMark(
-                            x: .value("Index", index),
-                            y: .value("X", gestureRecorder.recordedData[index].acceleration.x),
+                            x: .value("Index", 0),
+                            y: .value("X", 0),
                             series: .value("Axis", "X")
                         )
                         .foregroundStyle(.red)
 
                         LineMark(
-                            x: .value("Index", index),
-                            y: .value("Y", gestureRecorder.recordedData[index].acceleration.y),
+                            x: .value("Index", 0),
+                            y: .value("Y", 0),
                             series: .value("Axis", "Y")
                         )
                         .foregroundStyle(.green)
 
                         LineMark(
-                            x: .value("Index", index),
-                            y: .value("Z", gestureRecorder.recordedData[index].acceleration.z),
+                            x: .value("Index", 0),
+                            y: .value("Z", 0),
                             series: .value("Axis", "Z")
                         )
                         .foregroundStyle(.blue)
                     }
+                    .chartLegend(position: .top, alignment: .leading, spacing: 8)
+                    .frame(height: 100)
                 }
-                .chartLegend(position: .top, alignment: .leading, spacing: 8)
-                .frame(height: 100)
+                
                 
                 HStack {
                     LegendView(color: .red, text: "X Axis")
@@ -141,7 +169,6 @@ struct AuthenticationView: View {
                 Text("CTW").tag(AuthenticationModel.GestureComparisonAlgorithm.CTW)
                 Text("SoftDTW").tag(AuthenticationModel.GestureComparisonAlgorithm.SoftDTW)
                 Text("Euclidean").tag(AuthenticationModel.GestureComparisonAlgorithm.Euclidean)
-                Text("Correlation").tag(AuthenticationModel.GestureComparisonAlgorithm.Correlation)
             }
             .pickerStyle(MenuPickerStyle())
 
