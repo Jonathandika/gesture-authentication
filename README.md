@@ -15,6 +15,6 @@ This final year project explores the development and implementation of an innova
 - **iOS Mobile App (SwiftUI):** For developing the mobile application prototype.
 - **FastAPI Backend:** For developing the backend system
 
-## Results
+## Best Result
 
 - **SoftDTW Algorithm:** Demonstrated high efficiency and accuracy in user authentication, ensuring low False Acceptance Rate (FAR) and False Rejection Rate (FRR) while maintaining quick processing times.

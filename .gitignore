@@ -4,3 +4,4 @@ files/*
 *.pyc
 !vercel.json
 _backup/*
+__pycache__/
